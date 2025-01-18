@@ -63,10 +63,15 @@ function updateInfo(state){
 }
 
 function getSupplyInfo(energyPrediction){
+
+    const bulbwatt = 5;
+    const lightTime = 100;
+
     homeValue = formatToMillions(energyPrediction/3000);
     industryValue = convertToYears(energyPrediction/5555600000);
     evValue = formatToMillions(energyPrediction/1000);
-    bulbValue = (energyPrediction/0.5).toLocaleString();
+    //convert energy to watt hour and divide by wattage needed for light up the bulb times light time
+    bulbValue = ((energyPrediction*1000)/(bulbwatt*lightTime)).toLocaleString(); 
 
     return homeValue, industryValue, evValue;
 }
