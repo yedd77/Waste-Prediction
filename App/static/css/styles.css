@@ -1,0 +1,73 @@
+
+.f-8 {
+    font-size: 14px;
+}
+
+.f-9 {
+    font-size: 10px;
+}
+
+.f-10 {
+    font-size: 70px;
+}
+
+.f-11 {
+    font-size: 90px;
+}
+
+.text-pur {
+    color: #6c3483;
+}
+
+.text-pur-2 {
+    color: #442755;
+}
+
+.shadow-md {
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.shadow-lg {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.empty {
+    margin: 0px;
+    padding: 0px;
+}
+
+.bg-color {
+    background-color: #f8f8f8;
+    height: 100vh;
+}
+
+.bg-color-2 {
+    background-color: #d7c9e4;
+    height: 100vh;
+}
+
+.bg-color-3 {
+    background-color: #3D3470;
+}
+
+.f-style {
+    font-family: "Poppins", serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
+.focus {
+    cursor: pointer;
+}
+
+.load-more-button {
+    position: absolute;
+    bottom: 30px; /* 30px from the bottom of the viewport */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Adjust for true centering */
+    z-index: 10; /* Ensure it stays above other elements */
+  }
