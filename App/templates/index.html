@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   <!--javascript-->
   <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 </head>
 
 <body class="f-style" style="height: 100vh">
@@ -67,7 +67,8 @@
       </div>
       {% if prediction and target_year %}
       <div class="d-flex justify-content-center">
-        <button id="load-more" class="btn btn-light text-pur border-0 fw-bold shadow-sm lh-lg load-more-button" type="button">Load more
+        <button id="load-more" class="btn btn-light text-pur border-0 fw-bold shadow-sm lh-lg load-more-button"
+          type="button">Load more
           information</button>
       </div>
       {% endif %}
@@ -89,7 +90,8 @@
               id="estimation-value">500</span> kWh</p>
           <p class="empty fw-semibold fs-4 text-pur-2">If the predicted waste were to be converted into energy, it will
             generate</p>
-          <p class="empty fw-bold text-pur-2 fw-bold" style="font-size: 3rem;"><span id="energyGen">17,414,331,550</span> kWh</p>
+          <p class="empty fw-bold text-pur-2 fw-bold" style="font-size: 3rem;"><span
+              id="energyGen">17,414,331,550</span> kWh</p>
           <p class="empty fw-semibold fs-6 text-pur-2 mb-4">of energy</p>
           <p class="empty fw-semibold fs-4 text-pur-2">in comparison it able to supply to</p>
         </div>
@@ -129,28 +131,30 @@
       </div>
       <div class="text-center">
         <p class="empty fw-semibold fs-4 text-pur-2 mb-1">or for more analogical comparison, it is able to light up</p>
-        <p class="empty fw-bold text-pur-2 fw-bold mb-1" style="font-size: 3rem;"><span id="bulbCount">3,482,866,310,000</span></p>
+        <p class="empty fw-bold text-pur-2 fw-bold mb-1" style="font-size: 3rem;"><span
+            id="bulbCount">3,482,866,310,000</span></p>
         <p class="empty fw-semibold fs-6 text-pur-2">of 5 watt lightbulb for 100 hour</p>
       </div>
       <div class="d-flex justify-content-center show-graph-button">
-        <button id="graphButton" class="btn btn-light text-pur border-0 fw-bold shadow-sm lh-lg" type="button">Load graph</button>
+        <button id="graphButton" class="btn btn-light text-pur border-0 fw-bold shadow-sm lh-lg" type="button">Load
+          graph</button>
       </div>
     </div>
   </div>
-  <div class="bg-color-4" id="graphSection">
-    <canvas id="prediction-graph"></canvas>
+  <div class="bg-color-4 text-center" id="graphSection">
+    <div id="chart_div" style="height: 90vh; width: 100vw;"></div>
   </div>
   <script>
     document.getElementById('load-more').addEventListener('click', function () {
-        const target = document.getElementById('info-section');
-        target.classList.remove('hidden')
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const target = document.getElementById('info-section');
+      target.classList.remove('hidden')
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     });
 
-    document.getElementById('graphButton').addEventListener('click' , function(){
-        const div = document.getElementById('graphSection');
-        div.scrollIntoView({behavior:"smooth", block:"start"});
+    document.getElementById('graphButton').addEventListener('click', function () {
+      const div = document.getElementById('graphSection');
+      div.scrollIntoView({ behavior: "smooth", block: "start" });
     })
   </script>
 
