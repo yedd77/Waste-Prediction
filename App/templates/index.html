@@ -21,9 +21,8 @@
   <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body class="f-style" style="height: 100vh">
-  <nav class="navbar shadow-sm">
+  <nav class="navbar sticky-top shadow-sm">
     <div class="container">
       <div class="d-flex">
         <i class="bi bi-robot text-pur-2 fs-3 me-3"></i>
@@ -40,12 +39,12 @@
         <div class="col-6 d-flex align-items-center">
           <div>
             {% if prediction and target_year %}
-            <p class="empty fw-bold f-10 text-pur-2 mb-3">Malaysia Generated {{ prediction }} Metric Tons Of Waste In {{
+            <p class="empty fw-bold f-10 text-pur-2 lh-sm">Malaysia Generated {{ prediction }} Metric Tons Of Waste In {{
               target_year }}.</p>
             {% else %}
-            <p class="empty fw-bold f-10 text-pur-2">Malaysia Waste Generated Yearly Prediction</p>
+            <p class="empty fw-bold f-10 text-pur-2 lh-sm">Malaysia Waste Generated Yearly Prediction</p>
             {% endif %}
-            <p class="empty fs-5 fw-semibold text-secondary">Prediction is based on past historical data of population,
+            <p class="empty fs-5 fw-semibold text-secondary lh-sm">Prediction is based on past historical data of population,
               generation waste, GDP, and death in Malaysia from
               2000.</p>
           </div>
@@ -75,11 +74,11 @@
   </div>
   <div class="bg-color-2 hidden" id="info-section">
     <div class="container" style="height: 100vh;">
-      <div class="text-center pt-3">
+      <div class="text-center pt-5 pb-3">
         <p class="fw-semibold fs-4 text-pur-2">Estimation assumption</p>
       </div>
-      <div class="text-center mb-3">
-        <div class="btn-group shadow-md border-0 mb-4">
+      <div class="text-center">
+        <div class="btn-group shadow-md border-0 mb-5">
           <a class="btn btn-light fw-bold text-pur border-0" onclick="updateInfo('low')">Low</a>
           <a class="btn bg-color-3 fw-bold text-light border-0" onclick="updateInfo('medium')">Medium</a>
           <a class="btn btn-light fw-bold text-pur border-0" onclick="updateInfo('high')">High</a>
@@ -132,12 +131,12 @@
         <p class="empty fw-bold text-pur-2 fw-bold mb-1" style="font-size: 3rem;"><span id="bulbCount">3,482,866,310,000</span></p>
         <p class="empty fw-semibold fs-6 text-pur-2">of 5 watt lightbulb for 100 hour</p>
       </div>
-      <div class="d-flex justify-content-center show-graph-button">
+      <div class="d-flex justify-content-center show-graph-button" style="margin-top: 100px;">
         <button id="graphButton" class="btn btn-light text-pur border-0 fw-bold shadow-sm lh-lg" type="button">Load graph</button>
       </div>
     </div>
   </div>
-  <div class="bg-color-4" id="graphSection">
+  <div class="bg-color-4 hidden" id="graphSection">
     <canvas id="prediction-graph"></canvas>
   </div>
   <script>
