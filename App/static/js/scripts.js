@@ -96,81 +96,109 @@ function convertToYears(decimalValue) {
     }
 }
 
-// Fetch the data from the server
-fetch('/graph-data?year=2025') // Replace 2030 with the desired year
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json(); // Parse the JSON response
-    })
-    .then(data => {
-        console.log('Historical Data:', data.historical);
-        console.log('Predicted Data:', data.predicted);
+document.getElementById('load-more').addEventListener('click', function () {
+    const target = document.getElementById('info-section');
+    target.classList.remove('hidden');
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // Extract historical and predicted data for the chart
-        const historicalYears = data.historical.years;
-        const historicalWaste = data.historical.waste;
+  });
 
-        const predictedYears = data.predicted.years;
-        const predictedWaste = data.predicted.waste;
+document.getElementById('graphButton').addEventListener('click', function () {
+    const target = document.getElementById('graphSection');
+    target.classList.remove('graphHidden');
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    fetchGraphData(targetYear);
+  })
 
-        // Prepare the data for Google Charts
-        const chartDataArray = prepareChartData(historicalYears, historicalWaste, predictedYears, predictedWaste);
+// Function to fetch data and render the graph
+function fetchGraphData(selectedYear) {
+    // Fetch data from the Flask endpoint
+    fetch(`/graph-data?year=${selectedYear}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json(); // Parse the JSON response
+        })
+        .then(data => {
+            console.log('Graph Data:', data); // Debug: Log the data
+            
+            // Prepare the labels and datasets for the graph
+            const historicalYears = data.historical.years;
+            const historicalWaste = data.historical.waste;
 
-        // Render the chart
-        google.charts.load('current', { packages: ['corechart'] });
-        google.charts.setOnLoadCallback(() => drawChart(chartDataArray));
-    })
-    .catch(error => {
-        console.error('Error fetching data:', error);
-    });
+            const predictedYears = data.predicted.years;
+            const predictedWaste = data.predicted.waste;
 
-// Prepare the data for Google Charts
-function prepareChartData(historicalYears, historicalWaste, predictedYears, predictedWaste) {
-    const chartDataArray = [['Year', 'Historical Waste', 'Predicted Waste']];
+            // Combine all years for the X-axis
+            const allYears = [...historicalYears, ...predictedYears];
 
-    const historicalWasteMap = new Map(historicalYears.map((year, index) => [year, historicalWaste[index]]));
-    const predictedWasteMap = new Map(predictedYears.map((year, index) => [year, predictedWaste[index]]));
-
-    const allYears = [...historicalYears, ...predictedYears];
-    allYears.forEach(year => {
-        chartDataArray.push([
-            year,
-            historicalWasteMap.get(year) || null, // Historical data or null
-            predictedWasteMap.get(year) || null  // Predicted data or null
-        ]);
-    });
-
-    return chartDataArray;
+            // Render the graph
+            renderLineGraph(allYears, historicalYears, historicalWaste, predictedYears, predictedWaste);
+        })
+        .catch(error => {
+            console.error('Error fetching graph data:', error);
+        });
 }
 
-// Draw the Google Chart
-function drawChart(chartDataArray) {
-    const data = google.visualization.arrayToDataTable(chartDataArray);
+// Function to render the line graph using Chart.js
+function renderLineGraph(allYears, historicalYears, historicalWaste, predictedYears, predictedWaste) {
+    const ctx = document.getElementById('myChart').getContext('2d');
 
-    const options = {
-        hAxis: {
-            title: 'Year', // Label for the x-axis
-            format: '####', // Ensure years are displayed as full numbers
-            gridlines: {
-                count: chartDataArray.length - 1 // Match gridlines to the number of data points
+    // Create the line graph
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: allYears,
+            datasets: [
+                {
+                    label: 'Historical Waste',
+                    data: historicalYears.map((year, index) => ({ x: year, y: historicalWaste[index] })),
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    fill: false,
+                },
+                {
+                    label: 'Predicted Waste',
+                    data: predictedYears.map((year, index) => ({ x: year, y: predictedWaste[index] })),
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    tension: 0.4,
+                    borderWidth: 2,
+                    borderDash: [5, 5],
+                    fill: false,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Historical and Predicted Waste Data'
+                },
+                legend: {
+                    position: 'top'
+                }
             },
-            ticks: chartDataArray.slice(1).map(row => row[0]) // Dynamically set ticks to the years
-        },
-        vAxis: {
-            title: 'Waste (tons)', // Label for the y-axis
-            gridlines: { count: 5 }
-        },
-        legend: { position: 'bottom' },
-        backgroundColor: '#f8f8f8',
-        series: {
-            0: { color: 'blue' }, // Historical line color
-            1: { color: 'green', lineDashStyle: [4, 4] } // Predicted line color and style
+            scales: {
+                x: {
+                    type: 'category',
+                    title: {
+                        display: true,
+                        text: 'Years'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Waste (in tons)'
+                    },
+                    beginAtZero: true
+                }
+            }
         }
-    };
-
-    const chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-    chart.draw(data, options);
+    });
 }
-

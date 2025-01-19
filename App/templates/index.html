@@ -18,8 +18,8 @@
   <!--css-->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   <!--javascript-->
-  <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body class="f-style" style="height: 100vh">
@@ -52,7 +52,7 @@
         </div>
         <div class="col-6 d-flex justify-content-center align-items-center">
           <div style="width: 60%;">
-            <form action="/predict" method="POST">
+            <form action="/predict" method="POST" >
               <input type="text" class="form-control input-lg border-0 shadow-sm" placeholder="Enter future years"
                 cols="30" type="number" id="years" name="years" required>
               <div class="mt-2 d-flex justify-content-end">
@@ -141,21 +141,12 @@
       </div>
     </div>
   </div>
-  <div class="bg-color-4 text-center" id="graphSection">
-    <div id="chart_div" style="height: 90vh; width: 100vw;"></div>
-  </div>
+  <div id="graphSection" class="graphHidden" style="height: 100vh;">
+    <canvas id="myChart"></canvas>
+  </div> 
+
   <script>
-    document.getElementById('load-more').addEventListener('click', function () {
-      const target = document.getElementById('info-section');
-      target.classList.remove('hidden')
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-    });
-
-    document.getElementById('graphButton').addEventListener('click', function () {
-      const div = document.getElementById('graphSection');
-      div.scrollIntoView({ behavior: "smooth", block: "start" });
-    })
+    const targetYear = "{{ target_year }}";
   </script>
 
   {% if prediction %}
