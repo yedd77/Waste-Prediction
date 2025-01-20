@@ -21,6 +21,9 @@
   <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/countup@1.8.2/countUp.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.6.8"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.12"></script>
+
 </head>
 
 <body class="f-style" style="height: 100vh;">
@@ -107,9 +110,9 @@
       <div class="mb-3 d-flex align-items-center justify-content-center">
         <div style="margin-right: 200px; margin-left: 50px;">
           <div class="text-center lh-sm">
-            <i class="bi bi-house-door text-pur-2 f-11"></i>
+            <i class="bi bi-house-door text-pur-2 f-11 empty" data-bs-toggle="popover" data-bs-placement="left" data-bs-custom-class="custom-popover" data-bs-title="Note" data-bs-html="true" data-bs-content='Considering annual consumption per household in Malaysia is 4,140kWh (<a href="https://eprints.utm.my/95060/" target="_blank">Boni Sena, Jan 2021, UTM</a>)'></i>
             <p class="empty fw-bold fs-4 text-pur-2 fw-bold"><span id="homeCount">5.8m</span></p>
-            <p class="empty fw-semibold fs-6 text-pur-2">homes for a year</p>
+            <p class="empty fw-semibold fs-6 text-pur-2 muted" >homes for a year</p>
           </div>
         </div>
         <div style="margin-right: 200px;">
@@ -119,9 +122,10 @@
         </div>
         <div style="margin-right: 200px;">
           <div class="text-center lh-sm">
-            <i class="bi bi-buildings text-pur-2 f-11"></i>
+            <i class="bi bi-buildings text-pur-2 f-11 empty" data-bs-toggle="popover" data-bs-placement="left" data-bs-custom-class="custom-tooltip" data-bs-title="Note" data-bs-html="true" data-bs-content='Considering an annual average factory electricity consumption is 9 GWh  (<a href="https://thundersaidenergy.com/downloads/industrial-energy-and-electricity-consumption-by-sector/
+            " target="_blank">thundersaidenergy.com</a>)'></i>
             <p class="empty fw-bold fs-4 text-pur-2 fw-bold"><span id="industryCount">3.5 years</span></p>
-            <p class="empty fw-semibold fs-6 text-pur-2">of energy supply for medium-size steel plant.</p>
+            <p class="empty fw-semibold fs-6 text-pur-2">medium-sized factories anually</p>
           </div>
         </div>
         <div style="margin-right: 200px;">
@@ -131,9 +135,9 @@
         </div>
         <div>
           <div class="text-center lh-sm">
-            <i class="bi bi-car-front f-11 text-pur-2"></i>
+            <i class="bi bi-car-front f-11 text-pur-2 empty" data-bs-toggle="popover" data-bs-placement="left" data-bs-custom-class="custom-tooltip" data-bs-title="This top tooltip is themed via CSS variables." data-bs-html="true" data-bs-content='Considering an average EV consume 0.217 kWh per kilometer and annual distance travel is 21,688 kilometers(<a href="https://www.edmunds.com/electric-car/articles/how-much-electricity-does-an-ev-use.html" target="_blank">edmunds.com</a>)'></i>
             <p class="empty fw-bold fs-4 text-pur-2 fw-bold"><span id="evCount">5.8m</span></p>
-            <p class="empty fw-semibold fs-6 text-pur-2">EV for 5,000 km of driving annually</p>
+            <p class="empty fw-semibold fs-6 text-pur-2">Electric Vehicle (EV) anually</p>
           </div>
         </div>
       </div>

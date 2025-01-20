@@ -1,6 +1,8 @@
 const low = 500;
 const medium = 600;
 const high = 700;
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 
 function updateInfo(state) {
 
@@ -109,9 +111,9 @@ function getSupplyInfo(energyPrediction) {
     const bulbwatt = 5;
     const lightTime = 100;
 
-    homeValue = formatToMillions(energyPrediction / 3000);
-    industryValue = convertToYears(energyPrediction / 5555600000);
-    evValue = formatToMillions(energyPrediction / 1000);
+    homeValue = Math.floor(energyPrediction / 4140).toLocaleString();
+    industryValue = Math.floor(energyPrediction / 9000000).toLocaleString();
+    evValue = Math.floor(energyPrediction / 4716.6).toLocaleString();
     //convert energy to watt hour and divide by wattage needed for light up the bulb times light time
     bulbValue = ((energyPrediction * 1000) / (bulbwatt * lightTime)).toLocaleString();
 
@@ -123,19 +125,6 @@ function formatToMillions(number) {
         return (number / 1_000_000).toFixed(1) + 'm';
     }
     return number.toLocaleString();
-}
-
-function convertToYears(decimalValue) {
-
-    const wholeYears = Math.floor(decimalValue);
-    const fractionalPart = decimalValue - wholeYears;
-
-    if (fractionalPart === 0) {
-        return `${wholeYears} years`;
-    } else {
-        const formattedYears = (wholeYears + fractionalPart).toFixed(1);
-        return `${formattedYears} years`;
-    }
 }
 
 // Function to fetch data and render the graph
@@ -306,3 +295,5 @@ document.getElementById('graphButton').addEventListener('click', function () {
         fetchGraphData(targetYear);
     }, 1300);
 });    
+
+
