@@ -90,3 +90,7 @@ html {
 .hidden {
     display: none;
 }
+
+.graphHidden{
+    display: none;
+}
