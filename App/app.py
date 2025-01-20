@@ -44,7 +44,7 @@ def predict():
         scaled_prediction = model.predict(scaled_features)
         prediction = scaler_y.inverse_transform(scaled_prediction.reshape(-1, 1))[0, 0]
 
-        return render_template('index.html', prediction=f" {prediction:.2f}", target_year=year)
+        return render_template('index.html', TextPrediction=f" {prediction:,.2f}", target_year=year, prediction=f" {prediction:.2f}")
     except Exception as e:
         print(f"Error: {e}")  # Debug print
         return render_template('index.html', prediction=f"Error: {str(e)}", target_year=None)

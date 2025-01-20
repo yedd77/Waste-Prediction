@@ -22,6 +22,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/countup@1.8.2/countUp.js"></script>
 </head>
+
 <body class="f-style" style="height: 100vh;">
   <div class="bg-color">
     <nav class="navbar sticky-top shadow-sm bg-light">
@@ -40,21 +41,22 @@
         <div class="col-6 d-flex align-items-center">
           <div>
             {% if prediction and target_year %}
-            <p class="empty fw-bold f-10 text-pur-2 lh-sm">Malaysia Generated {{ prediction }} Metric Tons Of Waste In {{
+            <p class="empty fw-bold f-10 text-pur-2 lh-sm">Malaysia Generated {{ TextPrediction }} Metric Tons Of Waste In {{
               target_year }}.</p>
             {% else %}
             <p class="empty fw-bold f-10 text-pur-2 lh-sm">Malaysia Waste Generated Yearly Prediction</p>
             {% endif %}
-            <p class="empty fs-5 fw-semibold text-secondary lh-sm">Prediction is based on past historical data of population,
+            <p class="empty fs-5 fw-semibold text-secondary lh-sm">Prediction is based on past historical data of
+              population,
               generation waste, GDP, and death in Malaysia from
               2000.</p>
           </div>
         </div>
         <div class="col-6 d-flex justify-content-center align-items-center">
           <div style="width: 60%;">
-            <form action="/predict" method="POST" >
-              <input type="text" class="form-control input-lg border-0 rounded-3 shadow-sm pt-3 pb-3 mb-2" placeholder="Enter future years"
-                cols="30" type="number" id="years" name="years" required>
+            <form action="/predict" method="POST">
+              <input type="text" class="form-control input-lg border-0 rounded-3 shadow-sm pt-3 pb-3 mb-2"
+                placeholder="Enter future years" cols="30" type="number" id="years" name="years" required>
               <div class="text-end">
                 {% if error %}
                 <p class="empty fw-semibold" id="error">{{ error }}</p>
@@ -87,7 +89,8 @@
       <div class="text-center">
         <div class="btn-group shadow-md border-0 mb-5">
           <a class="btn btn-light fw-bold text-pur border-0 custom-hover-low" onclick="updateInfo('low')">Low</a>
-          <a class="btn bg-color-3 fw-bold text-light border-0 custom-hover-medium" onclick="updateInfo('medium')">Medium</a>
+          <a class="btn bg-color-3 fw-bold text-light border-0 custom-hover-medium"
+            onclick="updateInfo('medium')">Medium</a>
           <a class="btn btn-light fw-bold text-pur border-0 custom-hover-high" onclick="updateInfo('high')">High</a>
         </div>
         <div>
@@ -142,7 +145,8 @@
       </div>
 
       <div class="d-flex justify-content-center show-graph-button mb-3" style="margin-top: 80px;">
-        <button id="graphButton" class="btn btn-light text-pur border-0 fw-bold shadow-sm lh-lg" type="button">Load graph</button>
+        <button id="graphButton" class="btn btn-light text-pur border-0 fw-bold shadow-sm lh-lg" type="button">Load
+          graph</button>
       </div>
     </div>
   </div>
