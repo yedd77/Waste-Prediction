@@ -96,20 +96,6 @@ function convertToYears(decimalValue) {
     }
 }
 
-document.getElementById('load-more').addEventListener('click', function () {
-    const target = document.getElementById('info-section');
-    target.classList.remove('hidden');
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  });
-
-document.getElementById('graphButton').addEventListener('click', function () {
-    const target = document.getElementById('graphSection');
-    target.classList.remove('graphHidden');
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-    fetchGraphData(targetYear);
-  })
-
 // Function to fetch data and render the graph
 function fetchGraphData(selectedYear) {
     // Fetch data from the Flask endpoint
@@ -201,7 +187,6 @@ function renderLineGraph(allYears, historicalYears, historicalWaste, predictedYe
             plugins: {
                 legend: {
                     labels: {
-                        // This more specific font property overrides the global property
                         font: {
                             family: "'Poppins'",
                             size: 14,
@@ -213,3 +198,24 @@ function renderLineGraph(allYears, historicalYears, historicalWaste, predictedYe
         },
     });
 }
+
+document.getElementById('load-more').addEventListener('click', function () {
+    const target = document.getElementById('info-section');
+    target.classList.remove('hidden');
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+document.getElementById('graphButton').addEventListener('click', function () {
+    const target = document.getElementById('graphSection');
+    const spin = document.getElementById('loadSpin');
+    target.classList.remove('graphHidden');
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    setTimeout(() => {
+        spin.classList.add('hidden');
+    }, 2000);
+    setTimeout(() => {
+        fetchGraphData(targetYear);
+    }, 1300);
+});
+    
+    

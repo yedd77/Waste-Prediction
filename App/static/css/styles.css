@@ -94,3 +94,11 @@ html {
 .graphHidden{
     display: none;
 }
+
+.canvasArea{
+    width: 80vw;
+}
+
+#graphSection{
+    height: 100vh;
+}
