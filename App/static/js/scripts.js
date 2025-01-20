@@ -1,3 +1,7 @@
+const low = 500;
+const medium = 600;
+const high = 700;
+
 function updateInfo(state) {
 
     const buttons = document.querySelectorAll('.btn-group .btn');
@@ -7,10 +11,6 @@ function updateInfo(state) {
     const industryText = document.getElementById('industryCount');
     const evText = document.getElementById('evCount');
     const bulbText = document.getElementById('bulbCount');
-
-    const low = 500;
-    const medium = 600;
-    const high = 700;
 
     buttons.forEach((button) => {
         button.classList.remove('bg-color-3', 'text-light');
@@ -31,6 +31,20 @@ function updateInfo(state) {
         evText.textContent = evValue;
         bulbText.textContent = bulbValue;
 
+        var countUp = new CountUp('energyGen', '0', energyPrediction, 0, 2, options);
+        if (!countUp.error) {
+            countUp.start();
+        } else {
+            console.error(countUp.error);
+        }
+
+        var countUp2 = new CountUp('bulbCount', 0, parseFloat(bulbValue.replace(/,/g, '')), 0, 2, options2);
+        if (!countUp2.error) {
+            countUp2.start();
+        } else {
+            console.error(countUp2.error);
+        }
+
     }
     else if (state === 'medium') {
         buttons[1].classList.add('bg-color-3', 'text-light');
@@ -45,6 +59,20 @@ function updateInfo(state) {
         industryText.textContent = industryValue;
         evText.textContent = evValue;
         bulbText.textContent = bulbValue;
+
+        var countUp = new CountUp('energyGen', '0', energyPrediction, 0, 2, options);
+        if (!countUp.error) {
+            countUp.start();
+        } else {
+            console.error(countUp.error);
+        }
+
+        var countUp2 = new CountUp('bulbCount', 0, parseFloat(bulbValue.replace(/,/g, '')), 0, 2, options2);
+        if (!countUp2.error) {
+            countUp2.start();
+        } else {
+            console.error(countUp2.error);
+        }
     }
     else if (state === "high") {
         buttons[2].classList.add('bg-color-3', 'text-light');
@@ -59,6 +87,20 @@ function updateInfo(state) {
         industryText.textContent = industryValue;
         evText.textContent = evValue;
         bulbText.textContent = bulbValue;
+
+        var countUp = new CountUp('energyGen', '0', energyPrediction, 0, 2, options);
+        if (!countUp.error) {
+            countUp.start();
+        } else {
+            console.error(countUp.error);
+        }
+
+        var countUp2 = new CountUp('bulbCount', 0, parseFloat(bulbValue.replace(/,/g, '')), 0, 2, options2);
+        if (!countUp2.error) {
+            countUp2.start();
+        } else {
+            console.error(countUp2.error);
+        }
     }
 }
 
@@ -108,7 +150,7 @@ function fetchGraphData(selectedYear) {
         })
         .then(data => {
             console.log('Graph Data:', data); // Debug: Log the data
-            
+
             // Prepare the labels and datasets for the graph
             const historicalYears = data.historical.years;
             const historicalWaste = data.historical.waste;
@@ -126,6 +168,21 @@ function fetchGraphData(selectedYear) {
             console.error('Error fetching graph data:', error);
         });
 }
+
+var options = {
+    useEasing: true,
+    useGrouping: true,
+    separator: ',',
+    decimal: '.'
+};
+
+var options2 = {
+    useEasing: true,
+    useGrouping: true,
+    separator: ',',
+    decimal: '.'
+};
+
 
 // Function to render the line graph using Chart.js
 function renderLineGraph(allYears, historicalYears, historicalWaste, predictedYears, predictedWaste) {
@@ -194,16 +251,47 @@ function renderLineGraph(allYears, historicalYears, historicalWaste, predictedYe
                     }
                 }
             },
-            
+
         },
     });
 }
 
+
 document.getElementById('load-more').addEventListener('click', function () {
     const target = document.getElementById('info-section');
+    const homeText = document.getElementById('homeCount');
+    const industryText = document.getElementById('industryCount');
+    const evText = document.getElementById('evCount');
+    const bulbText = document.getElementById('bulbCount');
+    
     target.classList.remove('hidden');
     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
+
+    const energyPredText = document.getElementById('energyGen');
+
+    energyPrediction = prediction * medium
+    energyPredText.textContent = energyPrediction.toLocaleString();
+
+    getSupplyInfo(energyPrediction)
+    homeText.textContent = homeValue;
+    industryText.textContent = industryValue;
+    evText.textContent = evValue;
+    bulbText.textContent = bulbValue;
+
+    var countUp = new CountUp('energyGen', '0', energyPrediction, 0, 2, options);
+    if (!countUp.error) {
+        countUp.start();
+    } else {
+        console.error(countUp.error);
+    }
+
+    var countUp2 = new CountUp('bulbCount', 0, parseFloat(bulbValue.replace(/,/g, '')), 0, 2, options2);
+    if (!countUp2.error) {
+        countUp2.start();
+    } else {
+        console.error(countUp2.error);
+    }
+});
 
 document.getElementById('graphButton').addEventListener('click', function () {
     const target = document.getElementById('graphSection');
@@ -212,10 +300,9 @@ document.getElementById('graphButton').addEventListener('click', function () {
     target.scrollIntoView({ behavior: "smooth", block: "start" });
     setTimeout(() => {
         spin.classList.add('hidden');
+
     }, 2000);
     setTimeout(() => {
         fetchGraphData(targetYear);
     }, 1300);
-});
-    
-    
+});    

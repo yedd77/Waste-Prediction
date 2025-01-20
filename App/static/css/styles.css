@@ -102,3 +102,27 @@ html {
 #graphSection{
     height: 100vh;
 }
+
+#error{
+    color: #C24545;
+}
+
+#spinner{
+    color: #442755 !important;
+}
+
+  .custom-hover-low:hover {
+    background-color: #a569bd;
+    color: #ffffff;
+  }
+
+
+  .custom-hover-medium:hover {
+    background-color: #a569bd;
+    color: #ffffff;
+  }
+
+  .custom-hover-high:hover {
+    background-color: #a569bd;
+    color: #ffffff; 
+ }

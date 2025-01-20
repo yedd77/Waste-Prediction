@@ -27,8 +27,8 @@ def predict():
         # Get input year from the form
         year = int(request.form['years'])
         # Check if year is within the range
-        if year < 2000 or year > 2200:
-            return render_template('index.html', prediction="Year must be between 2000 and 2200.", target_year=year)
+        if year < 2025 or year > 2200:
+            return render_template('index.html', error="Year must be between 2025 and 2200", target_year=year)
 
         # Predict features for the input year using Linear Regression
         future_features = pd.DataFrame({'year': [year]})

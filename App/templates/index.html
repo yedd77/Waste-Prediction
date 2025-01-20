@@ -20,9 +20,9 @@
   <!--javascript-->
   <script src="{{ url_for('static', filename='js/scripts.js') }}" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/countup@1.8.2/countUp.js"></script>
 </head>
 <body class="f-style" style="height: 100vh;">
-  
   <div class="bg-color">
     <nav class="navbar sticky-top shadow-sm bg-light">
       <div class="container">
@@ -53,8 +53,13 @@
         <div class="col-6 d-flex justify-content-center align-items-center">
           <div style="width: 60%;">
             <form action="/predict" method="POST" >
-              <input type="text" class="form-control input-lg border-0 shadow-sm pt-2 pb-2" placeholder="Enter future years"
+              <input type="text" class="form-control input-lg border-0 rounded-3 shadow-sm pt-3 pb-3 mb-2" placeholder="Enter future years"
                 cols="30" type="number" id="years" name="years" required>
+              <div class="text-end">
+                {% if error %}
+                <p class="empty fw-semibold" id="error">{{ error }}</p>
+                {% endif %}
+              </div>
               <div class="mt-2 d-flex justify-content-end">
                 <div class="d-grid col-4">
                   <button class="btn text-pur border-0 fw-semibold shadow-sm" type="submit"
@@ -81,9 +86,9 @@
       </div>
       <div class="text-center">
         <div class="btn-group shadow-md border-0 mb-5">
-          <a class="btn btn-light fw-bold text-pur border-0" onclick="updateInfo('low')">Low</a>
-          <a class="btn bg-color-3 fw-bold text-light border-0" onclick="updateInfo('medium')">Medium</a>
-          <a class="btn btn-light fw-bold text-pur border-0" onclick="updateInfo('high')">High</a>
+          <a class="btn btn-light fw-bold text-pur border-0 custom-hover-low" onclick="updateInfo('low')">Low</a>
+          <a class="btn bg-color-3 fw-bold text-light border-0 custom-hover-medium" onclick="updateInfo('medium')">Medium</a>
+          <a class="btn btn-light fw-bold text-pur border-0 custom-hover-high" onclick="updateInfo('high')">High</a>
         </div>
         <div>
           <p class="empty fw-semibold fs-4 text-pur-2">1 metric tone of waste can generate <span
@@ -149,7 +154,7 @@
       <div class="canvasArea">
         <div class="text-center" id="loadSpin">
           <div class="spinner-border" id="spinner" role="status"></div>
-          <p class="text-dark fw-semibold">Loading...</p>
+          <p class="text-dark fw-semibold">Loading Graph...</p>
         </div>
         <canvas id="myChart"></canvas>
       </div>
