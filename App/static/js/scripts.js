@@ -167,7 +167,6 @@ function renderLineGraph(allYears, historicalYears, historicalWaste, predictedYe
                     backgroundColor: 'rgba(255, 99, 132, 0.2)',
                     tension: 0.4,
                     borderWidth: 2,
-                    borderDash: [5, 5],
                     fill: false,
                 }
             ]
@@ -198,7 +197,19 @@ function renderLineGraph(allYears, historicalYears, historicalWaste, predictedYe
                     },
                     beginAtZero: true
                 }
-            }
-        }
+            },
+            plugins: {
+                legend: {
+                    labels: {
+                        // This more specific font property overrides the global property
+                        font: {
+                            family: "'Poppins'",
+                            size: 14,
+                        }
+                    }
+                }
+            },
+            
+        },
     });
 }

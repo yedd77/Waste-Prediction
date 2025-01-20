@@ -52,7 +52,7 @@
         <div class="col-6 d-flex justify-content-center align-items-center">
           <div style="width: 60%;">
             <form action="/predict" method="POST" >
-              <input type="text" class="form-control input-lg border-0 shadow-sm" placeholder="Enter future years"
+              <input type="text" class="form-control input-lg border-0 shadow-sm pt-2 pb-2" placeholder="Enter future years"
                 cols="30" type="number" id="years" name="years" required>
               <div class="mt-2 d-flex justify-content-end">
                 <div class="d-grid col-4">
@@ -140,12 +140,15 @@
       </div>
     </div>
   </div>
-  <div class="bg-color-4 hidden" id="graphSection">
-    <canvas id="prediction-graph"></canvas>
-  <div id="graphSection" class="graphHidden" style="height: 100vh;">
-    <canvas id="myChart"></canvas>
-  </div> 
-
+  <div id="graphSection" class="graphHidden">
+    <div class="text-center pt-4 pb-3">
+      <p class="fw-semibold fs-4 text-pur-2">Waste Generation Graph</p>
+    </div>
+    <span class="d-flex justify-content-center align-middle">
+      <div class="canvasArea">
+        <canvas id="myChart"></canvas>
+      </div>
+    </span>
   <script>
     const targetYear = "{{ target_year }}";
   </script>
